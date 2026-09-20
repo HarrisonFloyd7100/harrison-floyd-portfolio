@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harrison Floyd — Portfolio</title>
+<meta name="description" content="Harrison Floyd — CS student at UT Austin. Game development, robotics, and cloud infrastructure projects.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='6' y='8' width='4' height='6' fill='%231F4E79'/%3E%3Crect x='2' y='13' width='12' height='2' fill='%231F4E79'/%3E%3Ccircle cx='8' cy='5' r='3.4' fill='%231F4E79'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #EEF0F0;
+    --panel: #FBFBFA;
+    --border: #D7DADD;
+    --text: #1A1F26;
+    --muted: #5B6470;
+    --accent: #1F4E79;
+    --accent-2: #8A6C2F;
+    --mode-label: "Blueprint view";
+
+    --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --font-body: 'Public Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    --maxw: 720px;
+    --radius: 2px;
+  }
+
+  :root[data-theme="dark"]{
+    --bg: #0E2A45;
+    --panel: #123657;
+    --border: #2E4E6C;
+    --text: #E7EEF5;
+    --muted: #9FB4C8;
+    --accent: #8FC1EA;
+    --accent-2: #D2A24C;
+    --mode-label: "Paper view";
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    transition:background .2s ease, color .2s ease;
+  }
+
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  img, video{max-width:100%; display:block;}
+
+  /* ---------- Top bar / nav ---------- */
+  header.toolbar{
+    position:sticky; top:0; z-index:50;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+  }
+  .toolbar-inner{
+    max-width:1040px; margin:0 auto;
+    display:flex; align-items:center; gap:2rem;
+    padding:0 1.5rem;
+    height:60px;
+  }
+  .brand{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:1.05rem;
+    flex-shrink:0;
+    white-space:nowrap;
+    color:var(--text);
+  }
+  nav.tabs{
+    display:flex;
+    gap:1.5rem;
+    overflow-x:auto;
+    scrollbar-width:none;
+    flex:1;
+  }
+  nav.tabs::-webkit-scrollbar{display:none;}
+  nav.tabs a{
+    font-size:.88rem;
+    color:var(--muted);
+    white-space:nowrap;
+    padding:.3rem 0;
+    border-bottom:2px solid transparent;
+  }
+  nav.tabs a:hover{color:var(--text); text-decoration:none;}
+  nav.tabs a.active{
+    color:var(--text);
+    border-bottom-color:var(--accent);
+  }
+  .theme-toggle{
+    flex-shrink:0;
+    font-family:var(--font-body);
+    font-size:.82rem;
+    color:var(--muted);
+    background:transparent;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:.4rem .7rem;
+    cursor:pointer;
+  }
+  .theme-toggle:hover{color:var(--text); border-color:var(--accent);}
+
+  /* ---------- Layout helpers ---------- */
+  main{max-width:1040px; margin:0 auto; padding:0 1.5rem;}
+  section{
+    padding:5rem 0;
+    border-bottom:1px solid var(--border);
+  }
+  section:last-of-type{border-bottom:none;}
+  .col{max-width:var(--maxw);}
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    color:var(--accent-2);
+    margin:0 0 .75rem;
+  }
+  h1,h2,h3,h4{font-family:var(--font-display); font-weight:600; line-height:1.2; margin:0; color:var(--text);}
+  h2{font-size:clamp(1.55rem, 1.25rem + 1.3vw, 2.1rem); margin-bottom:1.75rem;}
+  h3{font-size:1.25rem; margin-bottom:.15rem;}
+  p{margin:0 0 1.1rem; color:var(--text);}
+  p.muted, .muted{color:var(--muted);}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative; padding:1rem 2.25rem 2.5rem;}
+  .hero::before, .hero::after,
+  .hero .corner-r::before, .hero .corner-r::after{
+    content:""; position:absolute; width:14px; height:14px;
+    border-color:var(--border);
+  }
+  .hero::before{ top:0; left:0; border-top:1px solid var(--border); border-left:1px solid var(--border); }
+  .hero::after{ bottom:0; left:0; border-bottom:1px solid var(--border); border-left:1px solid var(--border); }
+  .hero .corner-r{position:absolute; inset:0; pointer-events:none;}
+  .hero .corner-r::before{ top:0; right:0; border-top:1px solid var(--border); border-right:1px solid var(--border); }
+  .hero .corner-r::after{ bottom:0; right:0; border-bottom:1px solid var(--border); border-right:1px solid var(--border); }
+
+  .hero-name{
+    font-family:var(--font-display);
+    font-size:clamp(2.2rem, 1.6rem + 2.6vw, 3.2rem);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0 0 .9rem;
+  }
+  .caret{
+    display:inline-block;
+    width:3px;
+    height:0.85em;
+    background:var(--accent);
+    margin-left:3px;
+    vertical-align:-0.08em;
+    animation:hf-blink 800ms step-end infinite;
+  }
+  .caret.hidden{display:none;}
+  @keyframes hf-blink{ 50%{opacity:0;} }
+  .hero-lede{
+    font-size:1.1rem;
+    max-width:38rem;
+    color:var(--text);
+  }
+  .fact-row{
+    display:flex; flex-wrap:wrap;
+    margin-top:1.75rem;
+    border-top:1px solid var(--border);
+    padding-top:1.1rem;
+  }
+  .fact{
+    padding:0 1.4rem 0 0;
+    margin-right:1.4rem;
+    border-right:1px solid var(--border);
+  }
+  .fact:last-child{border-right:none;}
+  .fact .k{display:block; font-family:var(--font-mono); font-size:.72rem; color:var(--muted); margin-bottom:.25rem;}
+  .fact .v{font-size:.92rem;}
+
+  .about{margin-top:3rem;}
+
+  .contact-row{
+    display:flex; flex-wrap:wrap; gap:1.75rem;
+    font-size:.92rem;
+    margin-top:1.25rem;
+  }
+  .contact-row a{color:var(--text); border-bottom:1px solid var(--border);}
+  .contact-row a:hover{color:var(--accent); border-color:var(--accent); text-decoration:none;}
+
+  /* ---------- Panels (projects, entries) ---------- */
+  .panel{
+    border-top:1px solid var(--border);
+    padding-top:1.75rem;
+    margin-top:1.75rem;
+  }
+  .panel:first-of-type{margin-top:0;}
+  .panel-head{
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    margin-bottom:1.4rem;
+  }
+  .panel-head .sheet{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    color:var(--muted);
+    flex-shrink:0;
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:.25rem .7rem;
+  }
+  .field{margin-top:1.5rem;}
+  .field:first-child{margin-top:0;}
+  .field h4{
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:.92rem;
+    color:var(--text);
+    border-top:1px solid var(--border);
+    padding-top:.85rem;
+    margin-bottom:.6rem;
+  }
+  .field:first-child h4{border-top:none; padding-top:0;}
+  .field ul, .field ol{margin:0; padding-left:1.2rem;}
+  .field li{margin-bottom:.5rem;}
+  .field p{margin-bottom:.5rem;}
+
+  .figure{
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:1rem 1.1rem;
+    display:flex; align-items:center; gap:.85rem;
+    margin-top:1.1rem;
+    background:var(--panel);
+  }
+  .figure .icon{
+    flex-shrink:0;
+    width:26px; height:26px;
+    border:1px solid var(--border);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--accent);
+    font-size:.7rem;
+  }
+  .figure .fig-text{font-size:.85rem; color:var(--text);}
+  .figure .fig-file{display:block; font-family:var(--font-mono); font-size:.72rem; color:var(--muted); margin-top:.2rem;}
+
+  /* ---------- Data tables (education / skills / certs) ---------- */
+  .kv{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:.5rem 1.4rem;
+    font-size:.94rem;
+  }
+  .kv dt{font-family:var(--font-mono); font-size:.75rem; color:var(--muted); padding-top:.2rem;}
+  .kv dd{margin:0;}
+
+  .skill-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1.75rem 2rem;
+  }
+  @media (max-width:700px){ .skill-grid{grid-template-columns:1fr;} }
+  .skill-card{border-top:1px solid var(--border); padding-top:1rem;}
+  .skill-card h4{font-family:var(--font-body); font-weight:600; font-size:.95rem; margin-bottom:.5rem;}
+  .skill-card p{font-size:.92rem; color:var(--muted); margin-bottom:0;}
+
+  .cert-group{margin-top:2rem;}
+  .cert-group:first-of-type{margin-top:0;}
+  .cert-group h3{font-size:1.05rem; margin-bottom:1rem;}
+  .cert{border-top:1px solid var(--border); padding:1rem 0;}
+  .cert:first-of-type{border-top:none; padding-top:0;}
+  .cert-name{font-weight:600; margin-bottom:.25rem;}
+  .cert-desc{color:var(--muted); font-size:.9rem; margin:.3rem 0 0;}
+
+  /* ---------- Resume ---------- */
+  .resume-frame{
+    border-top:1px solid var(--border);
+    padding-top:2rem;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:.5rem;
+    font-size:.9rem;
+    border:1px solid var(--accent);
+    color:var(--accent);
+    padding:.65rem 1.2rem;
+    border-radius:var(--radius);
+  }
+  .btn:hover{background:var(--accent); color:var(--bg); text-decoration:none;}
+  .note{
+    font-size:.88rem; color:var(--muted);
+    border-left:2px solid var(--border);
+    padding-left:1.1rem;
+    margin-top:1.5rem;
+  }
+  .note code{font-family:var(--font-mono); font-size:.85em;}
+
+  footer{
+    max-width:1040px; margin:0 auto; padding:2.5rem 1.5rem 3.5rem;
+    font-size:.85rem; color:var(--muted);
+    border-top:1px solid var(--border);
+  }
+  .footer-row{
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem;
+  }
+  .footer-note{
+    margin-top:.85rem;
+    font-family:var(--font-mono);
+    font-size:.76rem;
+    color:var(--muted);
+  }
+
+  .toast{
+    position:fixed; left:50%; bottom:1.5rem; transform:translateX(-50%);
+    background:var(--text); color:var(--bg);
+    font-family:var(--font-mono); font-size:.8rem;
+    padding:.65rem 1.1rem; border-radius:var(--radius);
+    opacity:0; pointer-events:none;
+    transition:opacity .25s ease;
+    z-index:200;
+  }
+  .toast.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<header class="toolbar">
+  <div class="toolbar-inner">
+    <div class="brand">Harrison Floyd</div>
+    <nav class="tabs" id="tabs">
+      <a href="#home">Home</a>
+      <a href="#education">Education &amp; skills</a>
+      <a href="#unreal">Unreal Engine 5</a>
+      <a href="#godot">Godot 4</a>
+      <a href="#aws">AWS cloud</a>
+      <a href="#robotics">Robotics coursework</a>
+      <a href="#combat">Combat robotics</a>
+      <a href="#resume">Resume</a>
+      <a href="#certifications">Certifications</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button">Blueprint view</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <section id="home">
+    <div class="hero">
+      <div class="corner-r"></div>
+      <p class="eyebrow">Computer science · game development · robotics</p>
+      <h1 class="hero-name" aria-label="Harrison Floyd"><span id="heroNameText">Harrison Floyd</span><span class="caret" id="heroCaret" aria-hidden="true"></span></h1>
+      <p class="hero-lede">A junior Computer Science student at The University of Texas at Austin, building interactive systems across game engines, cloud infrastructure, and hardware.</p>
+
+      <div class="fact-row">
+        <div class="fact"><span class="k">University</span><span class="v">UT Austin</span></div>
+        <div class="fact"><span class="k">Minor</span><span class="v">Robotics</span></div>
+        <div class="fact"><span class="k">Class years</span><span class="v">2023–2027</span></div>
+        <div class="fact"><span class="k">GPA</span><span class="v">3.87</span></div>
+      </div>
+    </div>
+
+    <div class="about">
+      <p class="eyebrow">About me</p>
+      <p>Hi, I'm Harrison Floyd — a junior Computer Science student at The University of Texas at Austin passionate about game development, interactive systems, and immersive technology. I love building experiences that blur the line between digital and physical worlds, combining creativity, engineering, and design.</p>
+      <p>My coursework in Game Programming Paradigms, Game Technology, and Software Engineering has given me a strong foundation in gameplay mechanics, real-time rendering, and large-scale system design. Beyond the classroom, I've deepened my skills in full-stack development, cloud infrastructure, and hardware prototyping through hands-on projects and internships.</p>
+      <p>At Texas Inventionworks, I've led technical initiatives that bring ideas to life — developing interactive tools and prototypes that merge software precision with tangible design. I also worked on Robo Rumble, where I engineered and programmed robots from the ground up, exploring how motion, logic, and robot destruction intersect in technology.</p>
+      <p>I'm driven by the challenge of crafting systems that don't just work — but feel alive. Whether I'm optimizing gameplay code, architecting backend services, or experimenting with interactive hardware, my goal is to build experiences that inspire curiosity and connection.</p>
+
+      <div class="contact-row">
+        <a href="mailto:harrisonfloyd05@gmail.com">harrisonfloyd05@gmail.com</a>
+        <a href="https://www.linkedin.com/in/hfloyd" target="_blank" rel="noopener">linkedin.com/in/hfloyd</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION AND SKILLS -->
+  <section id="education">
+    <div class="col">
+      <p class="eyebrow">Education &amp; skills</p>
+      <h2>Education and skills</h2>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Bachelor of Science in Computer Science</h3>
+          <span class="sheet">2023–2027</span>
+        </div>
+        <dl class="kv">
+          <dt>University</dt><dd>University of Texas at Austin</dd>
+          <dt>Current GPA</dt><dd>3.87</dd>
+          <dt>Coursework</dt><dd>Data Structures, Computer Organization and Architecture, Principles of Operating Systems, Game Programming Paradigms, Game Technology, Computer Graphics, Machine Learning, Software Engineering</dd>
+          <dt>Minor</dt><dd>Robotics — an undergraduate minor consisting of 15 hours of robotics coursework across Computer Science, Mechanical, Electrical, and Aerospace Engineering. Relevant courses: Gateway to Robotics, Robotic Mechanism Design, Machine Learning</dd>
+        </dl>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>V.R. Eaton High School</h3>
+          <span class="sheet">2019–2023</span>
+        </div>
+        <dl class="kv">
+          <dt>Address</dt><dd>1350 Eagle Blvd, Haslet, TX 76052</dd>
+          <dt>Unweighted GPA</dt><dd>3.98</dd>
+          <dt>Weighted GPA</dt><dd>5.6585</dd>
+          <dt>Class rank</dt><dd>50 of 701</dd>
+          <dt>Composite SAT</dt><dd>1480</dd>
+        </dl>
+      </div>
+
+      <h2 style="margin-top:3.5rem;">Professional skills</h2>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <h4>Software development</h4>
+          <p>Proficient in C, C++, C#, Java, and Python with experience in both object-oriented and real-time programming. Skilled in designing and optimizing gameplay systems, backend services, and interactive software architectures.</p>
+        </div>
+        <div class="skill-card">
+          <h4>Game &amp; simulation systems</h4>
+          <p>Experienced with Unreal Engine 5 and Godot Engine, focusing on player interaction systems, AI behavior, and physics-based gameplay. Adept at integrating code and visual scripting to create immersive experiences.</p>
+        </div>
+        <div class="skill-card">
+          <h4>Cloud &amp; infrastructure</h4>
+          <p>Strong background in AWS including Lambda, Amplify, DynamoDB, AppSync, IAM, and CloudWatch. Experienced in developing scalable full-stack systems, automating infrastructure, and improving reliability across multi-endpoint architectures.</p>
+        </div>
+        <div class="skill-card">
+          <h4>Tools &amp; frameworks</h4>
+          <p>VS Code, Visual Studio 2022, GitLab, Git, Arduino IDE, Dynamixel, Unreal Engine, Godot Engine, AWS Cloud Console, REST APIs, and Agile workflows.</p>
+        </div>
+        <div class="skill-card">
+          <h4>Leadership &amp; collaboration</h4>
+          <p>Led multidisciplinary teams at Texas Inventionworks and Robo Rumble, coordinating engineers and designers to turn prototypes into deployable systems. Experienced in mentoring peers, leading workshops, and managing project life cycles.</p>
+        </div>
+        <div class="skill-card">
+          <h4>Problem solving &amp; innovation</h4>
+          <p>Thrive in experimental, fast-paced environments where creative solutions meet technical precision. Comfortable working from concept to implementation, balancing user experience with system reliability.</p>
+        </div>
+        <div class="skill-card">
+          <h4>Communication &amp; documentation</h4>
+          <p>Skilled in translating complex technical ideas into clear documentation, presentations, and demos for both technical and non-technical audiences.</p>
+        </div>
+        <div class="skill-card">
+          <h4>Adaptability &amp; growth mindset</h4>
+          <p>Constantly learning emerging technologies — from cloud infrastructure to robotics control systems — and applying them across game design, full-stack development, and interactive hardware.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UNREAL ENGINE 5 -->
+  <section id="unreal">
+    <div class="col">
+      <p class="eyebrow">Unreal Engine 5</p>
+      <h2>Unreal Engine 5 projects</h2>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Ninja Night</h3>
+          <span class="sheet">Level 01</span>
+        </div>
+        <div class="field">
+          <h4>The game</h4>
+          <ul>
+            <li>This is the first project in Unreal I created without any restrictions or basic requirements. My team and I decided we wanted to create a momentum-based action game.</li>
+            <li>The player's objective is to kill every enemy by using various weapons scattered around the room, while the enemies use a collaborative AI system to decide the individual actions that would most benefit the group.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Interesting features</h4>
+          <ul>
+            <li>An omnidirectional movement system including increasing velocity, air jumps, wall jumping, and wall running</li>
+            <li>System of weapons the player and enemies can equip, swing, and throw</li>
+            <li>Collaborative AI that recognizes the player's and other AI's status to determine the best action for the group of enemies to beat the player</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Main takeaways</h4>
+          <ul>
+            <li>Prototyping gameplay systems and player movement packages in Unreal's Blueprint and moving that prototype into Unreal C++</li>
+            <li>Using wall collisions and surface normals to implement movement</li>
+            <li>Prototyping, playtesting, and updating gameplay systems in response to player feedback</li>
+            <li>Creating a functional gameplay loop including a main menu for a proper build</li>
+            <li>Creating a build for an Unreal project for multiple operating systems</li>
+          </ul>
+        </div>
+        <div class="figure"><span class="icon">▶</span><span class="fig-text">Fig. 1 — Tech demo trailer, combat system footage<span class="fig-file">assets/media/ninja-night-combat.mp4</span></span></div>
+        <div class="figure"><span class="icon">▣</span><span class="fig-text">Fig. 2 — Wall run start logic and implementation<span class="fig-file">assets/media/ninja-night-wallrun.jpg</span></span></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>AI and Networking Horde Shooter</h3>
+          <span class="sheet">Level 02</span>
+        </div>
+        <div class="field">
+          <h4>The game</h4>
+          <ul>
+            <li>For this project we wanted to create the ultimate AI swarm networking experience, and nothing brings swarm AI and networking together like a horde shooter.</li>
+            <li>Taking inspiration from the likes of Left 4 Dead and Black Ops Zombies, we created a hunting, swarming AI capable of communicating with other AI agents, alongside networking features and third-person shooter game elements.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Interesting features</h4>
+          <ul>
+            <li>AI swarming logic, player audio and visual recognition, and AI agent communication</li>
+            <li>AI spawners to create increasingly larger hordes of enemies in a spread area</li>
+            <li>Advanced animation trees to support animations in all states with and without various weapons</li>
+            <li>Networking support for up to 4 players</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Main takeaways</h4>
+          <ul>
+            <li>Creating, texturing, and remapping resources (guns in this case) the player can equip and interact with</li>
+            <li>Advanced animation tree structure relying on multiple layers of state machines</li>
+            <li>Mapping items to player skeleton rigs to create smooth animations</li>
+            <li>Basic networking structure and syncing</li>
+            <li>Advanced AI features via C++ to maintain performance</li>
+          </ul>
+        </div>
+        <div class="figure"><span class="icon">▶</span><span class="fig-text">Fig. 1 — Tech showcase: networking, swarming AI, and weapons<span class="fig-file">assets/media/horde-shooter-demo.mp4</span></span></div>
+        <div class="figure"><span class="icon">▣</span><span class="fig-text">Fig. 2 — Animation tree blueprint overview<span class="fig-file">assets/media/horde-shooter-animtree.jpg</span></span></div>
+        <div class="figure"><span class="icon">▣</span><span class="fig-text">Fig. 3 — Logic to transition from unarmed walk to rifle walk<span class="fig-file">assets/media/horde-shooter-transition.jpg</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GODOT 4 -->
+  <section id="godot">
+    <div class="col">
+      <p class="eyebrow">Godot 4</p>
+      <h2>Godot game engine 4 projects</h2>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Physics Collision Simulation</h3>
+          <span class="sheet">Level 01</span>
+        </div>
+        <div class="field">
+          <h4>The project</h4>
+          <ul>
+            <li>This project was my second in Godot and my first to use GDExtension, the tool built to create add-ons for other people's projects and games using C++ rather than the engine's built-in C# or scripting language.</li>
+            <li>The project was to create a room with some number of balls that would spawn with random velocities. They are then meant to collide with other balls as well as the walls in a way that makes sense.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Interesting features</h4>
+          <ul>
+            <li>The most interesting piece of this project was avoiding any race conditions when two balls collided and their velocities were swapped. To do this I used a spare velocity that I would update after collision updates had finished — I could swap two colliding balls' actual velocities, then update the spare velocity after they had traveled away from one another, avoiding the race and maintaining accurate momentum.</li>
+            <li>Also interesting was calculating wall normals to determine how to change the direction of the ball's velocity while keeping the magnitude unchanged.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Main takeaways</h4>
+          <ul>
+            <li>I learned a lot about the basics of game collision and physics — namely how to obtain and use a surface normal, and how to transfer momentum between two objects in a perfectly elastic collision.</li>
+            <li>In general, it was good practice for applying real-world physics transitions to a digital environment, an essential basic for nearly all games.</li>
+          </ul>
+        </div>
+        <div class="figure"><span class="icon">▶</span><span class="fig-text">Fig. 1 — Video playthrough<span class="fig-file">assets/media/physics-sim-playthrough.mp4</span></span></div>
+        <div class="figure"><span class="icon">▣</span><span class="fig-text">Fig. 2 — Code snippet of ball collision logic<span class="fig-file">assets/media/physics-sim-code.jpg</span></span></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>2D Coin Collector</h3>
+          <span class="sheet">Level 02</span>
+        </div>
+        <div class="field">
+          <h4>The game</h4>
+          <ul>
+            <li>This was my first project in Godot, so as an introduction to the engine and C# package the professor told us to simply make a game. The requirements were extremely bare bones, which gave me plenty of room to be creative.</li>
+            <li>I decided to make a basic 2D platformer where you can run around and pick up randomly, infinitely spawning coins. The catch: each time you pick up a coin you get a little bit quicker, making it more and more difficult as you go. The overall objective is to set your own high score.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Interesting features</h4>
+          <ul>
+            <li>To randomly spawn the coins in desirable locations, I use a Path object drawn in the main scene. When a timer goes off, an instance of a coin is placed randomly along that path.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Main takeaways</h4>
+          <ul>
+            <li>I got a very hands-on understanding of the Godot engine — features like the use of a CharacterBody2D, sprite animation, porting assets, integrating music, accepting mouse input, creating interactable scenes, and instancing.</li>
+            <li>Overall it was a great introduction to the engine and to game development and design.</li>
+          </ul>
+        </div>
+        <div class="figure"><span class="icon">▶</span><span class="fig-text">Fig. 1 — Video playthrough<span class="fig-file">assets/media/coin-collector-playthrough.mkv</span></span></div>
+        <div class="figure"><span class="icon">▣</span><span class="fig-text">Fig. 2 — Code snippet of coin spawning system<span class="fig-file">assets/media/coin-collector-code.jpg</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWS CLOUD SERVICES -->
+  <section id="aws">
+    <div class="col">
+      <p class="eyebrow">AWS cloud services</p>
+      <h2>AWS infrastructure</h2>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>AWS Database Synch</h3>
+          <span class="sheet">Level 01</span>
+        </div>
+        <div class="field">
+          <h4>The system</h4>
+          <ul>
+            <li>Automated training-synchronization backend that bridges Fabman, UT Canvas, AWS AppSync, and DynamoDB to streamline how staff verify training completion and manage equipment access for thousands of makerspace users.</li>
+            <li>Built on top of several Python-based Lambdas, the system regularly updates NoSQL databases with updated training information provided by Canvas quizzes, sent through AWS to a third-party database, Fabman.</li>
+            <li>Fabman then provides physical boxes known as Machine Access Control (MAC) boxes, which ensure a given machine is off until a trained person scans into it.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>The impact</h4>
+          <ul>
+            <li>60+ staff members no longer need to manually verify training completion or update Fabman access profiles for 5000+ students.</li>
+            <li>Reduced a multi-hour weekly administrative burden to a fully automated process.</li>
+            <li>Eliminated common human errors in training assignment and access control.</li>
+            <li>Standardized training records across two previously disconnected platforms.</li>
+            <li>Improved safety and compliance by guaranteeing only trained students gain access to specific makerspace equipment.</li>
+            <li>Enabled real-time access provisioning — students can unlock resources minutes after completing training.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>CanvasSync Lambda</h4>
+          <ul>
+            <li>Triggered every 15 minutes by EventBridge</li>
+            <li>Retrieves API keys from Secrets Manager</li>
+            <li>Pulls course, module, and quiz-completion data from Canvas</li>
+            <li>Cross-checks members against DynamoDB</li>
+            <li>Creates new members in Fabman as needed</li>
+            <li>Creates new training objects in Fabman if they don't exist</li>
+            <li>Writes all synced member and training data into DynamoDB via AppSync</li>
+          </ul>
+        </div>
+        <div class="figure"><span class="icon">▣</span><span class="fig-text">Fig. 1 — Reference architecture: CanvasSync Lambda execution<span class="fig-file">assets/media/aws-canvassync-arch.jpg</span></span></div>
+        <div class="field">
+          <h4>TrainingSync Lambda</h4>
+          <ul>
+            <li>Also runs every 15 minutes</li>
+            <li>Fetches Fabman members, packages, and training records</li>
+            <li>Compares each user's Fabman trainings with Canvas completion data</li>
+            <li>Automatically assigns Fabman trainings when students complete Canvas modules</li>
+            <li>Automatically assigns Fabman packages (equipment access) when relevant</li>
+            <li>Updates DynamoDB with all new member-training relationships</li>
+          </ul>
+        </div>
+        <div class="figure"><span class="icon">▣</span><span class="fig-text">Fig. 2 — Reference architecture: TrainingSync Lambda execution<span class="fig-file">assets/media/aws-trainingsync-arch.jpg</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROBOTICS COURSEWORK -->
+  <section id="robotics">
+    <div class="col">
+      <p class="eyebrow">Robotics coursework</p>
+      <h2>Robotics coursework</h2>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Gateway to Robotics: Boston Dynamics Spot Leg</h3>
+          <span class="sheet">Level 01</span>
+        </div>
+        <div class="field">
+          <h4>The robot</h4>
+          <ul>
+            <li>This was the introductory project for all UT Robotics Minor students — a 3-DOF arm based on Boston Dynamics' Spot robot's leg.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Main features</h4>
+          <ul>
+            <li>3D-printed and laser-cut components attached to 3 servo motors connected in series to a Dynamixel microcontroller, which then connects to a laptop to be controlled by Python scripts or the Dynamixel Wizard desktop application.</li>
+            <li>Python code written by us to calculate the joint positions based on the given end-effector position (inverse kinematics).</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Challenges</h4>
+          <ul>
+            <li>The most difficult part of this project was creating the Python code to successfully calculate the inverse kinematics for any given end-effector position — specifically avoiding singularities, determining the inverse Jacobian matrix at any given step, and throwing out bad solutions.</li>
+            <li>Also, the insanely tiny screws on the motor mounts.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Results</h4>
+          <ul>
+            <li>In the end we were able to get the robot and Python script fully functional — you could type any position within reach of the end effector into the script and the robot would (mostly) cleanly move to within a few millimeters of that location.</li>
+          </ul>
+        </div>
+        <div class="figure"><span class="icon">▶</span><span class="fig-text">Fig. 1 — Robot using inverse kinematics to update the end effector position<span class="fig-file">assets/media/spot-leg-ik.mov</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMBAT ROBOTICS -->
+  <section id="combat">
+    <div class="col">
+      <p class="eyebrow">Combat robotics</p>
+      <h2>Competitive combat robotics</h2>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>The Baja Bunny</h3>
+          <span class="sheet">Level 01</span>
+        </div>
+        <div class="field">
+          <h4>The robot</h4>
+          <ul>
+            <li>The Baja Bunny was a 3lb vertical spinner, 4-wheel belt-driven combat robot that had a final bot budget of $300.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Main features</h4>
+          <ul>
+            <li>Bunny ears used to keep the weapon from hitting the floor when the bot is flipped upside down</li>
+            <li>Side paneling made from UHMW (thick and strong plastic) to protect the wheels and drivetrain</li>
+            <li>TPU back and center pieces to act as a flexible center chassis</li>
+            <li>Front plate ramp to drive up other bots into the vertical spinner</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Challenges</h4>
+          <ul>
+            <li>The main struggle with the Baja Bunny was the belts on our drivetrain — we unfortunately weren't able to get the belts connecting the two main motors to the four wheels to work well, so our drivetrain struggled the whole time. If I were to do it over again, I'd use belts with teeth instead of essentially O-rings.</li>
+          </ul>
+        </div>
+        <div class="field">
+          <h4>Results</h4>
+          <ul>
+            <li>The Baja Bunny placed low, but it was my team of four's first attempt at a combat robot, and we were still able to puncture our first opponent's battery and start a LiPo fire.</li>
+            <li>In the match footage, the Baja Bunny (white) rips the opponent (purple) in half, and — at the behest of the crowd — goes for the finishing blow on the LiPo battery.</li>
+          </ul>
+        </div>
+        <div class="figure"><span class="icon">▣</span><span class="fig-text">Fig. 1 — Showcase of the Baja Bunny's namesake<span class="fig-file">assets/media/baja-bunny-photo.jpg</span></span></div>
+        <div class="figure"><span class="icon">▶</span><span class="fig-text">Fig. 2 — The Baja Bunny's first fight<span class="fig-file">assets/media/baja-bunny-fight.mp4</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME -->
+  <section id="resume">
+    <div class="col">
+      <p class="eyebrow">Resume</p>
+      <h2>Resume</h2>
+      <div class="resume-frame">
+        <p>Download the latest resume as a PDF.</p>
+        <a class="btn" href="assets/resume.pdf" target="_blank" rel="noopener">Download resume (PDF)</a>
+        <p class="note">To finish this section: export your resume as a PDF, name it <code>resume.pdf</code>, and place it in an <code>assets</code> folder next to this page (the file on your Google Site is currently named <code>HarrisonFloyd_Resume_PostSummer_2026.pdf</code> — any name works as long as this link matches it). You can also embed a live preview with an <code>&lt;iframe src="assets/resume.pdf"&gt;</code> if you'd like it visible on the page itself.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="col">
+      <p class="eyebrow">Certifications</p>
+      <h2>Certifications</h2>
+
+      <div class="cert-group">
+        <h3>Programming</h3>
+        <div class="cert">
+          <div class="cert-name">PCEP — Certified Entry-Level Programming Python (2022)</div>
+          <p class="cert-desc">A certification for those that understand the universal concepts of programming as well as the specifics of syntax and semantics of both Python and Python 3, and fundamental skills in resolving typical implementation challenges.</p>
+        </div>
+        <div class="cert">
+          <div class="cert-name">MTA: Introduction to Programming using Python (2022)</div>
+          <p class="cert-desc">A certification for those with the skills and knowledge to write and recognize syntactically correct Python code, recognize its data types, and write and recognize logically correct Python code.</p>
+        </div>
+        <div class="cert">
+          <div class="cert-name">MTA: Introduction to Programming using Java (2022)</div>
+          <p class="cert-desc">A certification for those with the skills and knowledge to write, debug, and maintain well-formed, well-documented Java code, and solve a fundamental level of problems using syntactically correct Java code.</p>
+        </div>
+        <div class="cert">
+          <div class="cert-name">MTA: Introduction to Programming using JavaScript (2022)</div>
+          <p class="cert-desc">A certification for those with the skills and knowledge to write, debug, and maintain well-formed, well-documented JavaScript code, and solve a fundamental level of problems using syntactically correct JavaScript code.</p>
+        </div>
+      </div>
+
+      <div class="cert-group">
+        <h3>Microsoft Office</h3>
+        <div class="cert">
+          <div class="cert-name">Microsoft Excel, Microsoft 365 and Office 2019 (2022)</div>
+          <p class="cert-desc">A certification for understanding the fundamentals of Excel, and efficiently completing tasks using Excel.</p>
+        </div>
+        <div class="cert">
+          <div class="cert-name">Microsoft PowerPoint, Microsoft 365 and Office 2019 (2022)</div>
+          <p class="cert-desc">A certification for understanding the fundamentals of PowerPoint, and efficiently completing tasks using PowerPoint.</p>
+        </div>
+        <div class="cert">
+          <div class="cert-name">Microsoft Word, Microsoft 365 and Office 2019 (2021)</div>
+          <p class="cert-desc">A certification for understanding the fundamentals of Word, and efficiently completing tasks using Word.</p>
+        </div>
+        <div class="cert">
+          <div class="cert-name">Microsoft Office Specialist Associate, Microsoft 365 and Office 2019 (2022)</div>
+          <p class="cert-desc">A certification for understanding the fundamentals of all aspects of the basic office package, including Word, PowerPoint, and Excel.</p>
+        </div>
+      </div>
+
+      <div class="cert-group">
+        <h3>Other</h3>
+        <div class="cert">
+          <div class="cert-name">TestOut IT Fundamentals Pro (2022)</div>
+          <p class="cert-desc">A certification for those with a fundamental knowledge and ability to perform tasks in the real world using operating systems, common PC hardware and software, basic networking, databases, programming, security, and information systems.</p>
+        </div>
+        <div class="cert">
+          <div class="cert-name">TestOut Network Pro (2022)</div>
+          <p class="cert-desc">A certification for those able to perform real-world tasks using the Windows operating system and a wide variety of networking hardware and software.</p>
+        </div>
+        <div class="cert">
+          <div class="cert-name">OSHA 30-Hour: General Industry (2022)</div>
+          <p class="cert-desc">A certification for those with knowledge of various types of workplace hazards, safety PPE, and laws and standards for general workplaces, as well as how to manage others in following these safety practices to best keep a safe work environment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-row">
+    <span>© <span id="year"></span> Harrison Floyd</span>
+    <span><a href="mailto:harrisonfloyd05@gmail.com">harrisonfloyd05@gmail.com</a> &nbsp;&nbsp;<a href="https://www.linkedin.com/in/hfloyd" target="_blank" rel="noopener">linkedin.com/in/hfloyd</a></span>
+  </div>
+  <div class="footer-note">Rendered without a game engine — just HTML, CSS, and a little JavaScript. (There may or may not be a konami code somewhere on this page.)</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  var stored = localStorage.getItem('hf-theme');
+
+  function apply(theme){
+    if(theme){ root.setAttribute('data-theme', theme); }
+    else { root.removeAttribute('data-theme'); }
+    var effectiveDark = theme ? theme === 'dark' : mq.matches;
+    btn.textContent = effectiveDark ? 'Paper view' : 'Blueprint view';
+  }
+  apply(stored);
+
+  btn.addEventListener('click', function(){
+    var current = root.getAttribute('data-theme') || (mq.matches ? 'dark' : 'light');
+    var next = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('hf-theme', next);
+    apply(next);
+  });
+
+  // Hero name type-in (skipped entirely for reduced-motion users)
+  (function(){
+    var nameSpan = document.getElementById('heroNameText');
+    var caret = document.getElementById('heroCaret');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var full = nameSpan.textContent;
+    if(reduced || !full){ if(caret){ caret.classList.add('hidden'); } return; }
+    nameSpan.textContent = '';
+    var i = 0;
+    (function step(){
+      nameSpan.textContent = full.slice(0, i);
+      i++;
+      if(i <= full.length){ setTimeout(step, 55); }
+      else { setTimeout(function(){ caret.classList.add('hidden'); }, 900); }
+    })();
+  })();
+
+  // A small easter egg for anyone who still remembers the code
+  (function(){
+    var sequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','KeyB','KeyA'];
+    var progress = 0;
+    function showToast(msg){
+      var t = document.getElementById('toast');
+      if(!t){
+        t = document.createElement('div');
+        t.id = 'toast';
+        t.className = 'toast';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      requestAnimationFrame(function(){ t.classList.add('show'); });
+      clearTimeout(t._hideTimer);
+      t._hideTimer = setTimeout(function(){ t.classList.remove('show'); }, 2400);
+    }
+    document.addEventListener('keydown', function(e){
+      progress = (e.code === sequence[progress]) ? progress + 1 : (e.code === sequence[0] ? 1 : 0);
+      if(progress === sequence.length){
+        progress = 0;
+        var current = root.getAttribute('data-theme') || (mq.matches ? 'dark' : 'light');
+        var next = current === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('hf-theme', next);
+        apply(next);
+        showToast('Cheat code accepted — switched to ' + (next === 'dark' ? 'blueprint' : 'paper') + ' mode.');
+      }
+    });
+  })();
+
+  // Scrollspy for nav
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.tabs a'));
+  var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+
+  function setActive(id){
+    links.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+  }
+
+  if('IntersectionObserver' in window){
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ setActive(entry.target.id); }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function(s){ if(s) observer.observe(s); });
+  }
+</script>
+
+</body>
+</html>
