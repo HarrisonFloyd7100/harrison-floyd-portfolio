@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Harrison Floyd — Portfolio</title>
 <meta name="description" content="Harrison Floyd — CS student at UT Austin. Game development, robotics, and cloud infrastructure projects.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='6' y='8' width='4' height='6' fill='%231F4E79'/%3E%3Crect x='2' y='13' width='12' height='2' fill='%231F4E79'/%3E%3Ccircle cx='8' cy='5' r='3.4' fill='%231F4E79'/%3E%3C/svg%3E">
+<link rel="icon" href="media/joystick-icon.png" type="image/png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&amp;display=swap" rel="stylesheet">
 
 <style>
   :root{
@@ -424,6 +424,58 @@
   .project-photo > a{display:block;}
   .project-photo img{width:100%; height:auto;}
   .project-photo > a:focus-visible{outline-offset:-3px;}
+
+  /* Wide project overviews */
+  main, .toolbar-inner, footer{max-width:1480px;}
+  #home, #education, #resume, #certifications{max-width:1040px; margin-inline:auto;}
+  .project-section{padding:3rem 0; scroll-margin-top:60px;}
+  .project-section > .col{max-width:none;}
+  .project-panel{margin-top:2.5rem; padding-top:1.5rem;}
+  .project-panel .panel-head{margin-bottom:.6rem; flex-wrap:wrap;}
+  .project-panel .project-context{max-width:100%; margin-bottom:1.2rem; line-height:1.6;}
+  .project-columns{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:1.75rem; align-items:start;}
+  .project-columns + .project-columns{margin-top:1.5rem;}
+  .project-copy, .project-visuals{min-width:0;}
+  .project-copy{font-size:.94rem; line-height:1.6;}
+  .project-panel .field{margin-top:1.1rem;}
+  .project-copy > .field:first-child, .project-visuals > .field:first-child{margin-top:0;}
+  .project-panel .field h4{padding-top:.7rem; margin-bottom:.5rem;}
+  .project-copy > .field:first-child h4, .project-visuals > .field:first-child h4{border-top:none; padding-top:0;}
+  .project-panel .field li{margin-bottom:.35rem;}
+  .project-panel .project-media{margin:0;}
+  .project-visuals > * + *{margin-top:1rem !important;}
+  .project-panel .project-media video{width:100%; max-height:430px; object-fit:contain;}
+  .project-panel .project-photo img{width:100%; max-height:400px; object-fit:contain; background:var(--panel);}
+  .project-gallery{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; align-items:start;}
+  .project-gallery img{width:100%; max-height:330px; object-fit:contain;}
+  .project-gallery .freeze-media img{width:auto; max-width:100%;}
+  .project-panel figcaption{font-size:.8rem; line-height:1.5;}
+  .project-panel .media-link{font-size:.78rem;}
+  .project-details{margin-top:1.2rem; border:1px solid var(--border); background:var(--panel); border-radius:var(--radius);}
+  .project-details > summary{padding:.8rem 1rem; cursor:pointer; font-size:.9rem; font-weight:600; color:var(--text);}
+  .project-details > summary:hover{color:var(--accent);}
+  .project-details > summary:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .project-details-body{padding:0 1rem 1rem;}
+  .project-details-body > .field:first-child{margin-top:0;}
+  .project-details-body > .project-gallery, .project-details-body > .flow{margin-top:1rem;}
+  .project-panel .flow{width:100%; margin-left:0;}
+  .project-panel .flow-step img{max-height:280px; object-fit:contain;}
+  @media(min-width:1600px){main, .toolbar-inner, footer{max-width:1640px;}}
+  @media(max-width:900px){
+    .project-columns{grid-template-columns:minmax(0,1fr); gap:1.25rem;}
+    .project-panel .project-media video{max-height:450px;}
+    .project-section{padding:2.5rem 0;}
+  }
+  @media(max-width:600px){
+    .project-gallery{grid-template-columns:minmax(0,1fr);}
+    main, .toolbar-inner, footer{padding-left:1rem; padding-right:1rem;}
+    .toolbar-inner{gap:1rem;}
+    .project-details-body{padding:0 .75rem .75rem;}
+    .project-panel .project-context{font-size:.73rem;}
+  }
+
+  #aws .aws-gallery{grid-template-columns:minmax(0,1fr);}
+  #aws .aws-gallery img{max-height:none; height:auto;}
 </style>
 </head>
 <body>
@@ -484,7 +536,7 @@
         <a href="https://www.linkedin.com/in/hfloyd" target="_blank" rel="noopener">linkedin.com/in/hfloyd</a>
       </div>
     </div>
-  </section>
+  
 
   <!-- EDUCATION AND SKILLS -->
   <section id="education">
@@ -558,18 +610,18 @@
   </section>
 
   <!-- UNREAL ENGINE 5 -->
-  <section id="unreal">
+  <section id="unreal" class="project-section">
     <div class="col">
       <p class="eyebrow">Unreal Engine 5</p>
       <h2>Unreal Engine 5 projects</h2>
 
-      <div class="panel" id="spin-the-reel">
+      <div class="panel project-panel" id="spin-the-reel">
         <div class="panel-head">
           <h3>Spin The Reel - Work in Progress</h3>
           <span class="sheet">Level 01</span>
         </div>
         <p class="project-context">Unreal Engine 5.6 · C++ · Game design · Player controllers · Wheel-system architecture<br>Early prototype · Last updated: September 2026</p>
-        <div class="field">
+        <div class="project-columns"><div class="project-copy"><div class="field">
           <h4>The concept</h4>
           <p>A fast-paced fishing roguelite built around gambling-inspired risk and reward. The planned game challenges players to fish their way out of debt, racing against the clock to meet escalating quotas while assembling increasingly powerful builds.</p>
           <p>The central mechanic is a customizable reel wheel: each cast spins the wheel and selects an effect intended to modify the fishing attempt or the resulting catch. The design pairs beneficial wheel slices with penalties, making wheel composition a decision about both probability and risk.</p>
@@ -584,7 +636,7 @@
           </ul>
           <p>The prototype connects movement, casting, the wheel UI, and one minigame. It does not yet implement the full quota, item-build, or island-progression systems described in the design document.</p>
         </div>
-        <div class="field">
+        </div><div class="project-visuals"><div class="field">
           <h4>My contributions</h4>
           <ul>
             <li><strong>Game design:</strong> Contributed design work across every section of the game design document, including the core loop, wheel risk/reward, build progression, minigames, and production pipelines.</li>
@@ -598,7 +650,7 @@
           <p>The implementation currently uses two custom C++ classes: a wheel manager and a wheel slice. <code>Wheel.cpp</code> manages the reel and holds a <code>TArray</code> of wheel slices, forming the basis of the wheel's working inventory.</p>
           <p>The initial design places the wheel alongside the player so the player object can interact with it. A planned architecture change is to move the manager into a <code>UGameInstanceSubsystem</code>, centralizing access as the system grows.</p>
         </div>
-        <div class="field">
+        </div></div><details class="project-details"><summary>Planned gameplay and next development priorities</summary><div class="project-details-body"><div class="project-columns"><div class="project-copy"><div class="field">
           <h4>Planned gameplay and progression</h4>
           <ul>
             <li><strong>Timed quotas:</strong> Escalating debt payments create pressure to catch fish quickly and keep improving a run's earning potential.</li>
@@ -607,19 +659,19 @@
             <li><strong>Varied runs:</strong> Procedural islands, shops, additional fishing minigames, swimming, and unlocks between runs are part of the design direction.</li>
           </ul>
         </div>
-        <div class="field">
+        </div><div class="project-visuals"><div class="field">
           <h4>Next development priorities</h4>
           <p>Define a focused playable loop around one island, one achievable quota, the fishing flow, and a small set of meaningful items. Refine the wheel manager's ownership, expand the technical design document, and replace the rough test level with a space suited to playtesting that loop.</p>
         </div>
-      </div>
+      </div></div></div></details></div>
 
-      <div class="panel">
+      <div class="panel project-panel">
         <div class="panel-head">
           <h3>Ninja Night</h3>
           <span class="sheet">Level 02</span>
         </div>
         <p class="project-context">Unreal Engine 5 · C++ &amp; Blueprints · Movement systems · Wall running · Collaborative AI</p>
-        <div class="field">
+        <div class="project-columns"><div class="project-copy"><div class="field">
           <h4>The game</h4>
           <ul>
             <li>This is the first project in Unreal I created without any restrictions or basic requirements. My team and I decided we wanted to create a momentum-based action game.</li>
@@ -634,7 +686,15 @@
             <li>Collaborative AI that recognizes the player's and other AI's status to determine the best action for the group of enemies to beat the player</li>
           </ul>
         </div>
-        <div class="field">
+        </div><div class="project-visuals"><figure class="project-media">
+          <video id="ninjaNightVideo" controls playsinline preload="metadata" src="media/Ninja-Night-Combat-Fast.mp4" aria-label="Ninja Night combat demo" aria-describedby="ninjaNightCaption">
+            Your browser does not support embedded video.
+          </video>
+          <figcaption id="ninjaNightCaption">Fig. 1 — Tech demo trailer, combat system footage</figcaption>
+          <p class="media-link"><a href="media/Ninja-Night-Combat-Fast.mp4" target="_blank" rel="noopener">Open video directly</a></p>
+          <p id="ninjaNightError" class="media-error" role="status" hidden></p>
+        </figure>
+        </div></div><details class="project-details"><summary>Wall-running implementation and technical takeaways</summary><div class="project-details-body"><div class="project-columns"><div class="project-copy"><div class="field">
           <h4>Main takeaways</h4>
           <ul>
             <li>Prototyping gameplay systems and player movement packages in Unreal's Blueprint and moving that prototype into Unreal C++</li>
@@ -644,21 +704,11 @@
             <li>Creating a build for an Unreal project for multiple operating systems</li>
           </ul>
         </div>
-        <figure class="project-media">
-          <video id="ninjaNightVideo" controls playsinline preload="metadata"
-                 src="media/Ninja-Night-Combat-Fast.mp4"
-                 aria-label="Ninja Night combat demo" aria-describedby="ninjaNightCaption">
-            Your browser does not support embedded video.
-          </video>
-          <figcaption id="ninjaNightCaption">Fig. 1 — Tech demo trailer, combat system footage</figcaption>
-          <p class="media-link"><a href="media/Ninja-Night-Combat-Fast.mp4" target="_blank" rel="noopener">Open video directly</a></p>
-          <p id="ninjaNightError" class="media-error" role="status" hidden></p>
-        </figure>
         <div class="field">
           <h4>My implementation — wall running</h4>
           <p>These code screenshots show the wall-run start checks and the logic I implemented to execute the movement.</p>
         </div>
-        <figure class="project-media code-media">
+        </div><div class="project-visuals"><div class="project-gallery"><figure class="project-media code-media">
           <a href="media/wall_run_start_code.png" target="_blank" rel="noopener" aria-label="View ninja night code implementing the checks for starting a wall run at full size">
             <img src="media/wall_run_start_code.png" alt="Ninja Night code implementing the checks for starting a wall run" loading="lazy" decoding="async">
           </a>
@@ -672,15 +722,15 @@
           <figcaption>Fig. 3 — Wall-run execution</figcaption>
           <p class="media-link"><a href="media/wall_run_run_code.png" target="_blank" rel="noopener">View full-size image</a></p>
         </figure>
-      </div>
+      </div></div></div></div></details></div>
 
-      <div class="panel">
+      <div class="panel project-panel">
         <div class="panel-head">
           <h3>AI and Networking Horde Shooter</h3>
           <span class="sheet">Level 03</span>
         </div>
         <p class="project-context">Unreal Engine 5 · C++ &amp; Blueprints · Multiplayer networking · Swarm AI · Animation state machines</p>
-        <div class="field">
+        <div class="project-columns"><div class="project-copy"><div class="field">
           <h4>The game</h4>
           <ul>
             <li>For this project we wanted to create the ultimate AI swarm networking experience, and nothing brings swarm AI and networking together like a horde shooter.</li>
@@ -696,7 +746,15 @@
             <li>Networking support for up to 4 players</li>
           </ul>
         </div>
-        <div class="field">
+        </div><div class="project-visuals"><figure class="project-media">
+          <video id="hordeShooterVideo" controls playsinline preload="metadata" src="media/horde_demo.mp4" aria-label="AI and Networking Horde Shooter demo" aria-describedby="hordeShooterCaption">
+            Your browser does not support embedded video.
+          </video>
+          <figcaption id="hordeShooterCaption">Fig. 1 — Tech showcase: networking, swarming AI, and weapons</figcaption>
+          <p class="media-link"><a href="media/horde_demo.mp4" target="_blank" rel="noopener">Open video directly</a></p>
+          <p class="media-error" role="status" hidden></p>
+        </figure>
+        </div></div><details class="project-details"><summary>Animation system and technical takeaways</summary><div class="project-details-body"><div class="field">
           <h4>Main takeaways</h4>
           <ul>
             <li>Creating, texturing, and remapping resources (guns in this case) the player can equip and interact with</li>
@@ -706,16 +764,6 @@
             <li>Advanced AI features via C++ to maintain performance</li>
           </ul>
         </div>
-        <figure class="project-media">
-          <video id="hordeShooterVideo" controls playsinline preload="metadata"
-                 src="media/horde_demo.mp4" aria-label="AI and Networking Horde Shooter demo"
-                 aria-describedby="hordeShooterCaption">
-            Your browser does not support embedded video.
-          </video>
-          <figcaption id="hordeShooterCaption">Fig. 1 — Tech showcase: networking, swarming AI, and weapons</figcaption>
-          <p class="media-link"><a href="media/horde_demo.mp4" target="_blank" rel="noopener">Open video directly</a></p>
-          <p class="media-error" role="status" hidden></p>
-        </figure>
         <div class="field">
           <h4>Animation system</h4>
           <p>Each screenshot zooms into a node of the one before it: the overall tree, then the forward-walk state, the walk transition inside it, and finally the unarmed-to-rifle branch inside that. Click any image for full size.</p>
@@ -759,17 +807,17 @@
             <p class="media-link"><a href="media/unarmed_to_rifle_branch.png" target="_blank" rel="noopener">View full-size image</a></p>
           </figure>
         </div>
-      </div>
+      </div></details></div>
     </div>
   </section>
 
   <!-- GODOT 4 -->
-  <section id="godot">
+  <section id="godot" class="project-section">
     <div class="col">
       <p class="eyebrow">Godot 4</p>
       <h2>Godot game engine 4</h2>
 
-      <div class="panel" id="freeze-the-devil">
+      <div class="panel project-panel" id="freeze-the-devil">
         <div class="panel-head">
           <h3>Freeze the Devil</h3>
           <span class="sheet">Level 01</span>
@@ -779,7 +827,7 @@
           <a class="btn" href="https://kemblebee.itch.io/freezethedevil" target="_blank" rel="noopener">Play on itch.io</a>
           <a class="btn" href="https://youtu.be/TJ-0jGYwcN4" target="_blank" rel="noopener">Watch gameplay demo</a>
         </div>
-        <div class="field">
+        <div class="project-columns"><div class="project-copy"><div class="field">
           <h4>The game</h4>
           <p>A puzzle platformer built over a weekend for Texas Game Jam 2026. You play as a little ice cube descending into hell to refreeze the Devil before he escapes his icy prison and makes hell hot again.</p>
           <p>A magic kalimba lets you travel between a frozen past and a fiery present. Arrange ice blocks and dynamite in the past, then shift to the present: ice blocks become fire points that ignite bombs. Set up a chain reaction to clear the level and descend deeper into hell.</p>
@@ -796,12 +844,7 @@
             <li><strong>Boss encounter:</strong> Implemented a full boss fight with multiple phases, projectiles, and parries.</li>
           </ul>
         </div>
-        <div class="field">
-          <h4>The central technical challenge</h4>
-          <p>The two timelines need to preserve different world states while maintaining a one-way relationship: changing the past changes the present, but changing the present cannot rewrite the past. That rule connects object placement, fire, bomb explosions, and traversal into a single puzzle system.</p>
-          <p>The kalimba serves as the player's interface to this system, coordinating the gameplay and presentation changes when a song triggers a time shift.</p>
-        </div>
-        <div class="field">
+        </div><div class="project-visuals"><div class="field">
           <h4>Time travel, music, and chain reactions</h4>
           <p>The gameplay demonstration shows how playing a kalimba melody changes the timeline and how bomb placement determines whether an explosion chain succeeds. An initial arrangement falls short; a complete chain then demonstrates the solution.</p>
         </div>
@@ -813,7 +856,12 @@
           <p class="media-link"><a href="media/freeze-the-devil-time-shift-demo.mp4" target="_blank" rel="noopener">Open video directly</a></p>
           <p class="media-error" role="status" hidden></p>
         </figure>
-        <figure class="project-media code-media freeze-media">
+        </div></div><details class="project-details"><summary>Code showcase: timelines, kalimba input, and bomb chains</summary><div class="project-details-body"><div class="field">
+          <h4>The central technical challenge</h4>
+          <p>The two timelines need to preserve different world states while maintaining a one-way relationship: changing the past changes the present, but changing the present cannot rewrite the past. That rule connects object placement, fire, bomb explosions, and traversal into a single puzzle system.</p>
+          <p>The kalimba serves as the player's interface to this system, coordinating the gameplay and presentation changes when a song triggers a time shift.</p>
+        </div>
+        <div class="project-gallery"><figure class="project-media code-media freeze-media">
           <a href="media/freeze-the-devil-time-state.png" target="_blank" rel="noopener" aria-label="View time-state code at full size">
             <img src="media/freeze-the-devil-time-state.png" alt="Freeze the Devil: time-state code" loading="lazy" decoding="async">
           </a>
@@ -834,11 +882,11 @@
           <figcaption><strong>Kalimba input and signals</strong> — Collects directional notes while the instrument button is held, matches the sequence against the songs, and emits the corresponding time-shift or speed signal before clearing the input.</figcaption>
           <p class="media-link"><a href="media/freeze-the-devil-kalimba-input.png" target="_blank" rel="noopener">View full-size image</a></p>
         </figure>
-        <div class="field">
+        </div><div class="field">
           <h4>Bomb behavior and scene structure</h4>
           <p>The explosion method and bomb scene show how detection areas, object state, and deferred calls work together to produce a chain reaction without repeatedly triggering the same bomb.</p>
         </div>
-        <figure class="project-media code-media freeze-media">
+        <div class="project-gallery"><figure class="project-media code-media freeze-media">
           <a href="media/freeze-the-devil-bomb-explode.png" target="_blank" rel="noopener" aria-label="View bomb explosions and chain reactions at full size">
             <img src="media/freeze-the-devil-bomb-explode.png" alt="Freeze the Devil: bomb explosions and chain reactions" loading="lazy" decoding="async">
           </a>
@@ -852,18 +900,10 @@
           <figcaption><strong>Bomb scene and detection areas</strong> — The scene separates the smaller trigger area from the larger circular explosion area, alongside the physical collision shape, sprites, audio player, and time-state component.</figcaption>
           <p class="media-link"><a href="media/freeze-the-devil-bomb-scene.png" target="_blank" rel="noopener">View full-size image</a></p>
         </figure>
-        <div class="field">
+        </div></div></details><details class="project-details"><summary>Boss demonstration and planned improvements</summary><div class="project-details-body"><div class="project-columns"><div class="project-copy"><div class="field">
           <h4>Boss encounter — current jam build</h4>
           <p>The boss demonstration shows a quick finish: one parry and two dynamite explosions defeat the boss through both phases. This also exposes a balancing issue in the jam build: damage can bypass the intended second-phase encounter.</p>
         </div>
-        <figure class="project-media">
-          <video id="freezeBossDemo" controls playsinline preload="metadata" src="media/freeze-the-devil-boss-demo.mp4" aria-label="Boss fight: parry and dynamite" aria-describedby="freezeBossDemoCaption">
-            Your browser does not support embedded video.
-          </video>
-          <figcaption id="freezeBossDemoCaption"><strong>Boss fight: parry and dynamite</strong> — A short run demonstrating projectile parrying and explosive damage, including the current phase-skip issue.</figcaption>
-          <p class="media-link"><a href="media/freeze-the-devil-boss-demo.mp4" target="_blank" rel="noopener">Open video directly</a></p>
-          <p class="media-error" role="status" hidden></p>
-        </figure>
         <div class="field">
           <h4>What I would improve next</h4>
           <p>The jam build demonstrates the core systems, but playtesting exposed several areas I want to refine:</p>
@@ -873,29 +913,37 @@
             <li><strong>Boss readability and progression:</strong> The second-phase attack needs a visible cue. I would add a clear visual telegraph, revise damage and phase-transition handling so two dynamite explosions cannot bypass the second phase, and refine parry timing and feedback.</li>
           </ul>
         </div>
-        <div class="field">
+        </div><div class="project-visuals"><figure class="project-media">
+          <video id="freezeBossDemo" controls playsinline preload="metadata" src="media/freeze-the-devil-boss-demo.mp4" aria-label="Boss fight: parry and dynamite" aria-describedby="freezeBossDemoCaption">
+            Your browser does not support embedded video.
+          </video>
+          <figcaption id="freezeBossDemoCaption"><strong>Boss fight: parry and dynamite</strong> — A short run demonstrating projectile parrying and explosive damage, including the current phase-skip issue.</figcaption>
+          <p class="media-link"><a href="media/freeze-the-devil-boss-demo.mp4" target="_blank" rel="noopener">Open video directly</a></p>
+          <p class="media-error" role="status" hidden></p>
+        </figure>
+        </div></div></div></details><details class="project-details"><summary>Team and asset credits</summary><div class="project-details-body"><div class="field">
           <h4>Team and asset credits</h4>
           <p>Created with Kemblebee and Tokani as Team Crowbar. My contributions above focus on gameplay systems; full team and external-asset credits are available on the <a href="https://itch.io/jam/texas-game-jam-2026/rate/5057981" target="_blank" rel="noopener">jam submission</a>.</p>
           <p>The water mechanic builds on a water-class base by Jesse Madyson (Mostly Mad Productions), which I adapted for platforming and time travel.</p>
         </div>
-      </div>
+      </div></details></div>
 
     </div>
   </section>
 
   <!-- AWS CLOUD SERVICES -->
-  <section id="aws">
+  <section id="aws" class="project-section">
     <div class="col">
       <p class="eyebrow">AWS cloud services</p>
       <h2>AWS infrastructure</h2>
 
-      <div class="panel">
+      <div class="panel project-panel">
         <div class="panel-head">
           <h3>AWS Database Synch</h3>
           <span class="sheet">Level 01</span>
         </div>
         <p class="project-context">Python · AWS Lambda · DynamoDB &amp; AppSync · REST API integration · Workflow automation</p>
-        <div class="field">
+        <div class="project-columns"><div class="project-copy"><div class="field">
           <h4>The system</h4>
           <ul>
             <li>Automated training-synchronization backend that bridges Fabman, UT Canvas, AWS AppSync, and DynamoDB to streamline how staff verify training completion and manage equipment access for thousands of makerspace users.</li>
@@ -914,7 +962,21 @@
             <li>Enabled real-time access provisioning — students can unlock resources minutes after completing training.</li>
           </ul>
         </div>
-        <div class="field">
+        </div><div class="project-visuals"><div class="project-gallery aws-gallery"><figure class="project-media code-media">
+          <a href="media/CanvasSync.png" target="_blank" rel="noopener" aria-label="View CanvasSync architecture diagram at full size">
+            <img src="media/CanvasSync.png" alt="CanvasSync Lambda reference architecture diagram" loading="lazy" decoding="async" aria-describedby="canvasSyncCaption">
+          </a>
+          <figcaption id="canvasSyncCaption">Fig. 1 — Reference architecture: CanvasSync Lambda execution</figcaption>
+          <p class="media-link"><a href="media/CanvasSync.png" target="_blank" rel="noopener">View full-size diagram</a></p>
+        </figure>
+        <figure class="project-media code-media">
+          <a href="media/TrainingSync.png" target="_blank" rel="noopener" aria-label="View TrainingSync architecture diagram at full size">
+            <img src="media/TrainingSync.png" alt="TrainingSync Lambda reference architecture diagram" loading="lazy" decoding="async" aria-describedby="trainingSyncCaption">
+          </a>
+          <figcaption id="trainingSyncCaption">Fig. 2 — Reference architecture: TrainingSync Lambda execution</figcaption>
+          <p class="media-link"><a href="media/TrainingSync.png" target="_blank" rel="noopener">View full-size diagram</a></p>
+        </figure>
+      </div></div></div><details class="project-details"><summary>Lambda execution details</summary><div class="project-details-body"><div class="project-columns"><div class="project-copy"><div class="field">
           <h4>CanvasSync Lambda</h4>
           <ul>
             <li>Triggered every 15 minutes by EventBridge</li>
@@ -926,14 +988,7 @@
             <li>Writes all synced member and training data into DynamoDB via AppSync</li>
           </ul>
         </div>
-        <figure class="project-media code-media">
-          <a href="media/CanvasSync.png" target="_blank" rel="noopener" aria-label="View CanvasSync architecture diagram at full size">
-            <img src="media/CanvasSync.png" alt="CanvasSync Lambda reference architecture diagram" loading="lazy" decoding="async" aria-describedby="canvasSyncCaption">
-          </a>
-          <figcaption id="canvasSyncCaption">Fig. 1 — Reference architecture: CanvasSync Lambda execution</figcaption>
-          <p class="media-link"><a href="media/CanvasSync.png" target="_blank" rel="noopener">View full-size diagram</a></p>
-        </figure>
-        <div class="field">
+        </div><div class="project-visuals"><div class="field">
           <h4>TrainingSync Lambda</h4>
           <ul>
             <li>Also runs every 15 minutes</li>
@@ -944,30 +999,23 @@
             <li>Updates DynamoDB with all new member-training relationships</li>
           </ul>
         </div>
-        <figure class="project-media code-media">
-          <a href="media/TrainingSync.png" target="_blank" rel="noopener" aria-label="View TrainingSync architecture diagram at full size">
-            <img src="media/TrainingSync.png" alt="TrainingSync Lambda reference architecture diagram" loading="lazy" decoding="async" aria-describedby="trainingSyncCaption">
-          </a>
-          <figcaption id="trainingSyncCaption">Fig. 2 — Reference architecture: TrainingSync Lambda execution</figcaption>
-          <p class="media-link"><a href="media/TrainingSync.png" target="_blank" rel="noopener">View full-size diagram</a></p>
-        </figure>
-      </div>
+        </div></div></div></details></div>
     </div>
   </section>
 
   <!-- ROBOTICS COURSEWORK -->
-  <section id="robotics">
+  <section id="robotics" class="project-section">
     <div class="col">
       <p class="eyebrow">Robotics coursework</p>
       <h2>Robotics coursework</h2>
 
-      <div class="panel">
+      <div class="panel project-panel">
         <div class="panel-head">
           <h3>Gateway to Robotics: Boston Dynamics Spot Leg</h3>
           <span class="sheet">Level 01</span>
         </div>
         <p class="project-context">Python · Inverse kinematics · Jacobian methods · Servo control · Hardware prototyping</p>
-        <div class="field">
+        <div class="project-columns"><div class="project-copy"><div class="field">
           <h4>The robot</h4>
           <ul>
             <li>This was the introductory project for all UT Robotics Minor students — a 3-DOF arm based on Boston Dynamics' Spot robot's leg.</li>
@@ -980,7 +1028,14 @@
             <li>Python code written by us to calculate the joint positions based on the given end-effector position (inverse kinematics).</li>
           </ul>
         </div>
-        <div class="field">
+        </div><div class="project-visuals"><figure class="project-media project-photo">
+          <a href="media/BostonLeg.jpg" target="_blank" rel="noopener" aria-label="View boston dynamics spot-inspired robotic leg prototype at full size">
+            <img src="media/BostonLeg.jpg" alt="Boston Dynamics Spot-inspired robotic leg prototype" loading="lazy" decoding="async" aria-describedby="spotLegPhotoCaption">
+          </a>
+          <figcaption id="spotLegPhotoCaption">Fig. 1 — Boston Dynamics Spot-inspired leg prototype</figcaption>
+          <p class="media-link"><a href="media/BostonLeg.jpg" target="_blank" rel="noopener">View full-size photo</a></p>
+        </figure>
+        </div></div><div class="project-columns"><div class="project-copy"><div class="field">
           <h4>Challenges</h4>
           <ul>
             <li>The most difficult part of this project was creating the Python code to successfully calculate the inverse kinematics for any given end-effector position — specifically avoiding singularities, determining the inverse Jacobian matrix at any given step, and throwing out bad solutions.</li>
@@ -993,14 +1048,7 @@
             <li>In the end we were able to get the robot and Python script fully functional — you could type any position within reach of the end effector into the script and the robot would (mostly) cleanly move to within a few millimeters of that location.</li>
           </ul>
         </div>
-        <figure class="project-media project-photo">
-          <a href="media/BostonLeg.jpg" target="_blank" rel="noopener" aria-label="View boston dynamics spot-inspired robotic leg prototype at full size">
-            <img src="media/BostonLeg.jpg" alt="Boston Dynamics Spot-inspired robotic leg prototype" loading="lazy" decoding="async" aria-describedby="spotLegPhotoCaption">
-          </a>
-          <figcaption id="spotLegPhotoCaption">Fig. 1 — Boston Dynamics Spot-inspired leg prototype</figcaption>
-          <p class="media-link"><a href="media/BostonLeg.jpg" target="_blank" rel="noopener">View full-size photo</a></p>
-        </figure>
-        <figure class="project-media">
+        </div><div class="project-visuals"><figure class="project-media">
           <video id="spotLegVideo" controls playsinline preload="metadata" src="media/inverse_kinematis_bot.MOV" aria-label="Robotic leg inverse kinematics demonstration" aria-describedby="spotLegVideoCaption">
             Your browser does not support embedded video.
           </video>
@@ -1008,23 +1056,23 @@
           <p class="media-link"><a href="media/inverse_kinematis_bot.MOV" target="_blank" rel="noopener">Open video directly</a></p>
           <p class="media-error" role="status" hidden></p>
         </figure>
-      </div>
+      </div></div></div>
     </div>
   </section>
 
   <!-- COMBAT ROBOTICS -->
-  <section id="combat">
+  <section id="combat" class="project-section">
     <div class="col">
       <p class="eyebrow">Combat robotics</p>
       <h2>Competitive combat robotics</h2>
 
-      <div class="panel">
+      <div class="panel project-panel">
         <div class="panel-head">
           <h3>The Baja Bunny</h3>
           <span class="sheet">Level 01</span>
         </div>
         <p class="project-context">Mechanical design · Material selection · Drivetrain design · Fabrication · Team collaboration</p>
-        <div class="field">
+        <div class="project-columns"><div class="project-copy"><div class="field">
           <h4>The robot</h4>
           <ul>
             <li>The Baja Bunny was a 3lb vertical spinner, 4-wheel belt-driven combat robot that had a final bot budget of $300.</li>
@@ -1039,7 +1087,14 @@
             <li>Front plate ramp to drive up other bots into the vertical spinner</li>
           </ul>
         </div>
-        <div class="field">
+        </div><div class="project-visuals"><figure class="project-media project-photo">
+          <a href="media/baja_bunny.jpg" target="_blank" rel="noopener" aria-label="View the baja bunny combat robot at full size">
+            <img src="media/baja_bunny.jpg" alt="The Baja Bunny combat robot" loading="lazy" decoding="async" aria-describedby="bajaBunnyPhotoCaption">
+          </a>
+          <figcaption id="bajaBunnyPhotoCaption">Fig. 1 — The Baja Bunny combat robot</figcaption>
+          <p class="media-link"><a href="media/baja_bunny.jpg" target="_blank" rel="noopener">View full-size photo</a></p>
+        </figure>
+        </div></div><div class="project-columns"><div class="project-copy"><div class="field">
           <h4>Challenges</h4>
           <ul>
             <li>The main struggle with the Baja Bunny was the belts on our drivetrain — we unfortunately weren't able to get the belts connecting the two main motors to the four wheels to work well, so our drivetrain struggled the whole time. If I were to do it over again, I'd use belts with teeth instead of essentially O-rings.</li>
@@ -1052,14 +1107,7 @@
             <li>In the match footage, the Baja Bunny (white) rips the opponent (purple) in half, and — at the behest of the crowd — goes for the finishing blow on the LiPo battery.</li>
           </ul>
         </div>
-        <figure class="project-media project-photo">
-          <a href="media/baja_bunny.jpg" target="_blank" rel="noopener" aria-label="View the baja bunny combat robot at full size">
-            <img src="media/baja_bunny.jpg" alt="The Baja Bunny combat robot" loading="lazy" decoding="async" aria-describedby="bajaBunnyPhotoCaption">
-          </a>
-          <figcaption id="bajaBunnyPhotoCaption">Fig. 1 — The Baja Bunny combat robot</figcaption>
-          <p class="media-link"><a href="media/baja_bunny.jpg" target="_blank" rel="noopener">View full-size photo</a></p>
-        </figure>
-        <figure class="project-media">
+        </div><div class="project-visuals"><figure class="project-media">
           <video id="bajaBunnyVideo" controls playsinline preload="metadata" src="media/baja_bunny.mp4" aria-label="The Baja Bunny combat robotics match" aria-describedby="bajaBunnyVideoCaption">
             Your browser does not support embedded video.
           </video>
@@ -1067,7 +1115,7 @@
           <p class="media-link"><a href="media/baja_bunny.mp4" target="_blank" rel="noopener">Open video directly</a></p>
           <p class="media-error" role="status" hidden></p>
         </figure>
-      </div>
+      </div></div></div>
     </div>
   </section>
 
@@ -1147,12 +1195,12 @@
     </div>
   </section>
 
-</main>
+
 
 <footer>
   <div class="footer-row">
     <span>© <span id="year"></span> Harrison Floyd</span>
-    <span><a href="mailto:harrisonfloyd05@gmail.com">harrisonfloyd05@gmail.com</a> &nbsp;&nbsp;<a href="https://www.linkedin.com/in/hfloyd" target="_blank" rel="noopener">linkedin.com/in/hfloyd</a></span>
+    <span><a href="mailto:harrisonfloyd05@gmail.com">harrisonfloyd05@gmail.com</a>   <a href="https://www.linkedin.com/in/hfloyd" target="_blank" rel="noopener">linkedin.com/in/hfloyd</a></span>
   </div>
   <div class="footer-note">Rendered without a game engine — just HTML, CSS, and a little JavaScript. (And a little secret if you input the code every gamer knows)</div>
 </footer>
@@ -1278,5 +1326,5 @@
   });
 </script>
 
-</body>
+</div></section></main></body>
 </html>
