@@ -285,9 +285,25 @@
   .cert-desc{color:var(--muted); font-size:.9rem; margin:.3rem 0 0;}
 
   /* ---------- Resume ---------- */
+  #resume{scroll-margin-top:80px;}
+  #resume > .col{max-width:none;}
   .resume-frame{
     border-top:1px solid var(--border);
-    padding-top:2rem;
+    padding-top:1.5rem;
+  }
+  .resume-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.75rem;
+    margin-bottom:1.25rem;
+  }
+  .resume-image{
+    display:block;
+    width:100%;
+    height:auto;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    background:#fff;
   }
   .btn{
     display:inline-flex; align-items:center; gap:.5rem;
@@ -849,11 +865,11 @@
           <p>The gameplay demonstration shows how playing a kalimba melody changes the timeline and how bomb placement determines whether an explosion chain succeeds. An initial arrangement falls short; a complete chain then demonstrates the solution.</p>
         </div>
         <figure class="project-media">
-          <video id="freezeTimeDemo" controls playsinline preload="metadata" src="media/freeze-the-devil-time-shift-demo.mp4" aria-label="Time shifting and bomb chains · approximately 1:30" aria-describedby="freezeTimeDemoCaption">
+          <video id="freezeTimeDemo" controls playsinline preload="metadata" src="media/Freeze-The-Devil-Time-Shift-Demo.mp4" aria-label="Time shifting and bomb chains · approximately 1:30" aria-describedby="freezeTimeDemoCaption">
             Your browser does not support embedded video.
           </video>
           <figcaption id="freezeTimeDemoCaption"><strong>Time shifting and bomb chains · approximately 1:30</strong> — A short chain fails to reach the next bomb, followed by a successful chain after the arrangement is changed.</figcaption>
-          <p class="media-link"><a href="media/freeze-the-devil-time-shift-demo.mp4" target="_blank" rel="noopener">Open video directly</a></p>
+          <p class="media-link"><a href="media/Freeze-The-Devil-Time-Shift-Demo.mp4" target="_blank" rel="noopener">Open video directly</a></p>
           <p class="media-error" role="status" hidden></p>
         </figure>
         </div></div><details class="project-details"><summary>Code showcase: timelines, kalimba input, and bomb chains</summary><div class="project-details-body"><div class="field">
@@ -914,11 +930,11 @@
           </ul>
         </div>
         </div><div class="project-visuals"><figure class="project-media">
-          <video id="freezeBossDemo" controls playsinline preload="metadata" src="media/freeze-the-devil-boss-demo.mp4" aria-label="Boss fight: parry and dynamite" aria-describedby="freezeBossDemoCaption">
+          <video id="freezeBossDemo" controls playsinline preload="metadata" src="media/Freeze-The-Devil-Boss-Demo.mp4" aria-label="Boss fight: parry and dynamite" aria-describedby="freezeBossDemoCaption">
             Your browser does not support embedded video.
           </video>
           <figcaption id="freezeBossDemoCaption"><strong>Boss fight: parry and dynamite</strong> — A short run demonstrating projectile parrying and explosive damage, including the current phase-skip issue.</figcaption>
-          <p class="media-link"><a href="media/freeze-the-devil-boss-demo.mp4" target="_blank" rel="noopener">Open video directly</a></p>
+          <p class="media-link"><a href="media/Freeze-The-Devil-Boss-Demo.mp4" target="_blank" rel="noopener">Open video directly</a></p>
           <p class="media-error" role="status" hidden></p>
         </figure>
         </div></div></div></details><details class="project-details"><summary>Team and asset credits</summary><div class="project-details-body"><div class="field">
@@ -1125,8 +1141,11 @@
       <p class="eyebrow">Resume</p>
       <h2>Resume</h2>
       <div class="resume-frame">
-        <p>Download the latest resume as a PDF.</p>
-        <a class="btn" href="media/resume.pdf" target="_blank" rel="noopener">Download resume (PDF)</a>
+        <div class="resume-actions">
+          <a class="btn" href="media/resume.pdf" target="_blank" rel="noopener">Open full-size resume</a>
+          <a class="btn" href="media/resume.pdf" download="Harrison-Floyd-Resume.pdf">Download PDF</a>
+        </div>
+        <img class="resume-image" src="media/resume.png" alt="Harrison Floyd’s full one-page resume. A readable PDF is available using the links above." loading="lazy" decoding="async">
       </div>
     </div>
   </section>
