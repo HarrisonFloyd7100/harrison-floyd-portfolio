@@ -1,46 +1,35 @@
-This folder holds the media the site links to. Nothing here is required for
-the site to work — every reference below is optional and just fills in a
-placeholder that currently shows as a bordered "add media" box.
+HARRISON FLOYD — MULTIPAGE PORTFOLIO
 
-Resume
-------
-assets/resume.pdf
-  Your resume, exported as a PDF. On your Google Site it's currently named
-  HarrisonFloyd_Resume_PostSummer_2026.pdf — rename it to resume.pdf, or
-  keep its original name and update the href in the Resume section of
-  index.html to match.
+INSTALL
+Extract the contents of this ZIP into your existing portfolio folder beside
+its media/ directory. Replace index.html. Keep the HTML pages together at the
+root; assets/ contains the shared styling, scripts, and illustrated covers.
+No build step or dependencies are needed. Open index.html or serve the folder
+using your existing hosting setup.
 
-Project media (all optional — used in the placeholder "media" boxes)
-----------------------------------------------------------------------
-Unreal Engine 5 — Ninja Night
-  media/ninja-night-combat.mp4      (tech demo trailer / combat footage)
-  media/ninja-night-wallrun.jpg     (wall run start logic screenshot)
+Your original media files are referenced with their existing paths and exact
+capitalization. Media files were not attached and are not bundled here.
+Keep media/resume.png and media/resume.pdf for the resume page.
 
-Unreal Engine 5 — AI and Networking Horde Shooter
-  media/horde-shooter-demo.mp4      (tech showcase video)
-  media/horde-shooter-animtree.jpg  (animation tree blueprint overview)
-  media/horde-shooter-transition.jpg (unarmed-to-rifle walk transition)
+PAGES
+index.html: six project cards, filter controls, and introduction
+spin-the-reel.html: main Unreal project
+freeze-the-devil.html: Godot game jam project
+smaller-unreal-projects.html: Ninja Night and Horde Shooter
+aws-infrastructure.html: Texas Inventionworks infrastructure
+robotics-coursework.html: Spot-inspired robotic leg
+combat-robotics.html: The Baja Bunny
+about.html: complete about text, education, skills, and certifications
+resume.html: full-page static resume image and PDF links
 
-Godot 4 — Physics Collision Simulation
-  media/physics-sim-playthrough.mp4
-  media/physics-sim-code.jpg
+THEME & EASTER EGG
+The theme follows your system preference until you choose Light/Dark mode.
+Your choice persists across pages. On the homepage, enter:
+Up Up Down Down Left Right Left Right B A
+The headshot switches to the fun photo. Enter again to switch back.
 
-Godot 4 — 2D Coin Collector
-  media/coin-collector-playthrough.mkv
-  media/coin-collector-code.jpg
-
-AWS — Database Synch
-  media/aws-canvassync-arch.jpg
-  media/aws-trainingsync-arch.jpg
-
-Robotics Coursework — Gateway to Robotics
-  media/spot-leg-ik.mov
-
-Combat Robotics — The Baja Bunny
-  media/baja-bunny-photo.jpg
-  media/baja-bunny-fight.mp4
-
-To actually show an image or video instead of the placeholder box, replace
-the relevant <div class="media">...</div> block in index.html with an
-<img src="assets/media/your-file.jpg" alt="..."> or
-<video src="assets/media/your-file.mp4" controls></video> tag.
+CARD PREVIEWS
+Photo cards use your existing project images. Game cards begin with original
+vector covers; once the matching local video can be loaded, the script captures
+a still frame as the card image. Videos are never autoplayed on the homepage.
+Spin the Reel uses an illustrated cover because no project image was supplied.
