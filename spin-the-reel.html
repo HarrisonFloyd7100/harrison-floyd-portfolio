@@ -26,7 +26,7 @@
           </ul>
         </div>
         <div class="field">
-          <h4>Current technical design — the reel</h4>
+          <h4>Current technical design: the reel</h4>
           <p>The implementation currently uses two custom C++ classes: a wheel manager and a wheel slice. <code>Wheel.cpp</code> manages the reel and holds a <code>TArray</code> of wheel slices, forming the basis of the wheel's working inventory.</p>
           <p>The initial design places the wheel alongside the player so the player object can interact with it. A planned architecture change is to move the manager into a <code>UGameInstanceSubsystem</code>, centralizing access as the system grows.</p>
         </div>
